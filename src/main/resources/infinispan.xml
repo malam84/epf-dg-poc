@@ -1,0 +1,20 @@
+<infinispan xmlns="urn:infinispan:config:14.0">
+    <cache-container default-cache="default">
+        <local-cache name="default">
+            <memory>
+                <heap size="1000" />
+            </memory>
+            <expiration lifespan="60000" max-idle="30000" />
+        </local-cache>
+    </cache-container>
+  
+    
+    <cache-container default-cache="sessions">
+    <distributed-cache name="sessions" mode="SYNC">
+        <encoding>
+            <key media-type="application/x-java-object"/>
+            <value media-type="application/x-java-object"/>
+        </encoding>
+    </distributed-cache>
+</cache-container>
+</infinispan>
