@@ -33,24 +33,71 @@ Setup Instructions
     
       Option 1: Run PostgreSQL in Docker
     
-      docker run --name postgres-db -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=admin -e POSTGRES_DB=mydb -p 5432:5432 -d postgres
+          docker run --name postgres-db -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=admin -e POSTGRES_DB=mydb -p 5432:5432 -d postgres
     
-      Update application.properties to match your database config.
+          Update application.properties to match your database config.
     
-    Option 2: Use an Existing PostgreSQL Instance
+      Option 2: Use an Existing PostgreSQL Instance
     
-      Modify the spring.datasource.url in application.properties:
+          Modify the spring.datasource.url in application.properties:
     
-      spring.datasource.url=jdbc:postgresql://localhost:5432/mydb
-      spring.datasource.username=admin
-      spring.datasource.password=admin
+          spring.datasource.url=jdbc:postgresql://localhost:5432/mydb
+          spring.datasource.username=admin
+          spring.datasource.password=admin
 
 3️⃣ Configure Red Hat Data Grid (Remote)
 
     If running locally via Docker:
   
     docker run -d -p 11222:11222 --name datagrid-server quay.io/infinispan/server:latest
-  
+
+    Create 3 Caches in Datagrid with below specs:
+
+        Cache : session
+
+            {
+              "sessions": {
+                "distributed-cache": {
+                  "owners": "2",
+                  "mode": "SYNC",
+                  "statistics": true,
+                  "encoding": {
+                    "media-type": "application/x-protostream"
+                  }
+                }
+              }
+            }
+
+        Cache : mockedApiResponse
+
+            {
+              "mockedApiResponse": {
+                "distributed-cache": {
+                  "owners": "2",
+                  "mode": "SYNC",
+                  "statistics": true,
+                  "encoding": {
+                    "media-type": "application/json"
+                  }
+                }
+              }
+            }
+
+        Cache : users-cache
+
+            {
+              "users-cache": {
+                "distributed-cache": {
+                  "owners": "2",
+                  "mode": "SYNC",
+                  "statistics": true,
+                  "encoding": {
+                    "media-type": "application/json"
+                  }
+                }
+              }
+            }
+            
     Ensure Infinispan/Remote Data Grid is properly configured in application.properties:
   
     infinispan.remote.server-list=localhost:11222
