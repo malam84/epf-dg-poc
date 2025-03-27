@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package org.springframework.session.data.infinispan;
+
+message SpringSession {
+  string id = 1;
+  int64 creationTime = 2;
+  int64 lastAccessedTime = 3;
+  int64 maxInactiveInterval = 4;
+  map<string, string> sessionAttributes = 5;
+}
