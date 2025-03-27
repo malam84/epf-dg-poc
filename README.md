@@ -71,7 +71,7 @@ Setup Instructions
 
     Swagger UI: http://localhost:8080/swagger-ui/index.html
 
-      <img width="1445" alt="image" src="https://github.com/user-attachments/assets/79baf35a-dda4-4f89-9e33-27d112f6062c" />
+<img width="1445" alt="image" src="https://github.com/user-attachments/assets/79baf35a-dda4-4f89-9e33-27d112f6062c" />
 
     Example Endpoints:
        1. To Test Session Caching
@@ -84,13 +84,13 @@ Setup Instructions
             curl -X GET http://localhost:8080/fetch-data?id=123
               You can see json response from the Rest API is cached in Datagrid server, In Cache named: "mockedApiResponse"
 
-                  <img width="1456" alt="image" src="https://github.com/user-attachments/assets/b93cf001-66e6-4930-bb88-d2b257b412b3" />
+<img width="1456" alt="image" src="https://github.com/user-attachments/assets/b93cf001-66e6-4930-bb88-d2b257b412b3" />
 
        3. To test DB Caching (Read Through & WriteBehind)
             curl -X GET http://localhost:8080/users/2
             curl -X POST http://localhost:8080/users
              body - {"email": "sam@rh.com", "name": "Sam Altman", "version": 1}
 
-               <img width="1451" alt="image" src="https://github.com/user-attachments/assets/ad205265-5bb1-4565-913b-0790981c6af2" />
+<img width="1451" alt="image" src="https://github.com/user-attachments/assets/ad205265-5bb1-4565-913b-0790981c6af2" />
 
 
