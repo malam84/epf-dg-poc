@@ -154,6 +154,7 @@ Setup Instructions
 
            However you will notice the push to DB directly took longer than writing to Datagrid.
            
+<img width="1169" alt="Screenshot 2025-04-14 at 12 43 08 AM" src="https://github.com/user-attachments/assets/2ee2a8ff-c579-4032-95d0-9791feb61874" />
 
 
 
