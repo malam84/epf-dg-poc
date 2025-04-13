@@ -10,6 +10,8 @@ Features
     
     3. Write-Behind & Read-Through Caching
 
+    4. Configurtaion based Write-Behind mecahnism is used to write image files to PoatgreDB.
+
 Stack 
     1. Spring Boot with JPA & Hibernate
     2. Infinispan (Red Hat Data Grid) for Caching
@@ -117,8 +119,9 @@ Setup Instructions
     Once the application is running, access the APIs via:
 
     Swagger UI: http://localhost:8080/swagger-ui/index.html
+    
+<img width="1402" alt="Screenshot 2025-04-14 at 12 16 54 AM" src="https://github.com/user-attachments/assets/985bb3c4-19f5-4eee-9aa3-8465cc1b8ede" />
 
-<img width="1445" alt="image" src="https://github.com/user-attachments/assets/79baf35a-dda4-4f89-9e33-27d112f6062c" />
 
     Example Endpoints:
        1. To Test Session Caching
@@ -139,5 +142,15 @@ Setup Instructions
              body - {"email": "sam@rh.com", "name": "Sam Altman", "version": 1}
 
 <img width="1451" alt="image" src="https://github.com/user-attachments/assets/ad205265-5bb1-4565-913b-0790981c6af2" />
+
+4. To test Image caching (Write behind mechanism
+           enter url "http://localhost:8080/upload.html" in the browser
+
+            <img width="394" alt="image" src="https://github.com/user-attachments/assets/06cbc42a-cc91-4811-8e5a-7ccf86f5aabc" />
+
+           upload any image of your choice
+
+           you will see the image uploaded to DB via Datagrid.
+
 
 
