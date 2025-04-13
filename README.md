@@ -146,11 +146,14 @@ Setup Instructions
 4. To test Image caching (Write behind mechanism
            enter url "http://localhost:8080/upload.html" in the browser
 
-            <img width="394" alt="image" src="https://github.com/user-attachments/assets/06cbc42a-cc91-4811-8e5a-7ccf86f5aabc" />
+<img width="394" alt="image" src="https://github.com/user-attachments/assets/06cbc42a-cc91-4811-8e5a-7ccf86f5aabc" />
 
            upload any image of your choice
 
-           you will see the image uploaded to DB via Datagrid.
+           you will see the image uploaded to DB via Datagrid to image_image table and also springboot uploading the image to Image table                  directly.
+
+           However you will notice the push to DB directly took longer than writing to Datagrid.
+           
 
 
 
