@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.configuration.cache.ConfigurationBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
@@ -17,6 +18,9 @@ import java.nio.file.Paths;
 public class ImageService {
 
     private final RemoteCache<String, byte[]> remoteCache;
+    
+    @Autowired
+    private ImageRepository imageRepository;
 
     public ImageService(RemoteCacheManager remoteCacheManager) {
         // Create a cache for images using Infinispan (Data Grid)
@@ -28,13 +32,19 @@ public class ImageService {
 
         // Store image in DataGrid (Infinispan)
         String imageId = generateImageId();
-        System.out.println("Cache name >>"+remoteCache);
-        System.out.println("generated image ID >>"+imageId);
-        System.out.println("generated image bytes >>"+imageBytes);
+       
+        //write to cache
+        long start = System.nanoTime();
         remoteCache.put(imageId, imageBytes);
-
-        // Asynchronously store the image to PostgreSQL (write-behind) - For example, save the image in a separate DB thread
-        new Thread(() -> saveImageToPostgres(imageId, imageBytes)).start();
+        long end = System.nanoTime();
+        long durationInMillis = (end - start) / 1_000_000;
+        System.out.println("Insert into Data Grid Method took " + durationInMillis + " ms to execute.");
+        //write to DB
+        long startdb = System.nanoTime();
+		saveImageToPostgres(imageId, imageBytes);
+		 long enddb = System.nanoTime();
+	     long durationInMillisdb = (enddb - startdb) / 1_000_000;
+	     System.out.println("Insert into DataBase Method took " + durationInMillisdb + " ms to execute.");
     }
 
     private String generateImageId() {
@@ -42,9 +52,8 @@ public class ImageService {
     }
 
     private void saveImageToPostgres(String imageId, byte[] imageBytes) {
-        // Code to save the image bytes into PostgreSQL as a BLOB (binary large object)
-        // Example using Spring Data JPA to save the image to PostgreSQL
-        // Your repository should handle this operation.
+    	 Image entity = new Image(imageId,imageBytes);
+         imageRepository.save(entity);
     }
 }
 
