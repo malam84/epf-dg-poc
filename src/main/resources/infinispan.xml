@@ -1,4 +1,5 @@
 <infinispan xmlns="urn:infinispan:config:14.0">
+   
     <cache-container default-cache="default">
         <local-cache name="default">
             <memory>
@@ -17,4 +18,8 @@
         </encoding>
     </distributed-cache>
 </cache-container>
+
+
+
+
 </infinispan>

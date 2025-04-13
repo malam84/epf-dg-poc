@@ -46,8 +46,8 @@ public class InfinispanRemoteConfig {
         return cacheManager.getCache("users");  // Cache name should match remote cache
     }
     
-    
-
-    
-  
+    @Bean
+    public RemoteCache<String, byte[]> imageCache(RemoteCacheManager cacheManager) {
+        return cacheManager.getCache("images");  // Cache name should match remote cache
+    }
 }
