@@ -47,7 +47,7 @@ public class InfinispanRemoteConfig {
     	System.out.println(">>>>>>>>ssl_port>>>>>>>>>>" +ssl_port);
         ConfigurationBuilder builder = new ConfigurationBuilder();
         builder.addServer()
-               .host(infinispan.client.hotrod.server) // Remote Infinispan server host
+               .host(host) // Remote Infinispan server host
                .port(ssl_port)       // Remote Infinispan server port
                .security()
                .authentication()
@@ -58,7 +58,7 @@ public class InfinispanRemoteConfig {
 	       .sniHostName(sniHostName)
 	       .trustStorePath(trustStorePath)
 	       .clientIntelligence(ClientIntelligence.BASIC);
-               .addContextInitializer(new UserSchemaInitializer()); ; // SASL mechanism
+               .addContextInitializer(new UserSchemaInitializer()); // SASL mechanism
 
         
         return new RemoteCacheManager(builder.build());
