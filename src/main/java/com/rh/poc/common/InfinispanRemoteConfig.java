@@ -19,7 +19,7 @@ import com.rh.poc.db.UserSchemaInitializer;
 @EnableInfinispanRemoteHttpSession(cacheName = "sessions")
 public class InfinispanRemoteConfig {
 
-    @Value("${infinispan.client.hotrod.server}")
+        @Value("${infinispan.client.hotrod.server}")
 	private String host;
 
 	@Value("${infinispan.client.hotrod.port}")
@@ -50,12 +50,12 @@ public class InfinispanRemoteConfig {
     	System.out.println(">>>>>>>>ssl_port>>>>>>>>>>" +ssl_port);
         ConfigurationBuilder builder = new ConfigurationBuilder();
         builder.addServer()
-               .host(host) // Remote Infinispan server host
-               .port(ssl_port)       // Remote Infinispan server port
+               .host("epf-datagrid-poc.datagrid.svc.cluster.local") // Remote Infinispan server host
+               .port(11222)       // Remote Infinispan server port
                .security()
                .authentication()
-               .username(userName) // Username
-               .password(password) // Password
+               .username("developer") // Username
+               .password("tYxtberWYosXk9aY") // Password
                .saslMechanism("DIGEST-MD5")
                .addContextInitializer(new UserSchemaInitializer()); ; // SASL mechanism
         
