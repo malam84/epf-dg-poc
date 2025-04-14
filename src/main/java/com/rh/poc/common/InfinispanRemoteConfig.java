@@ -37,8 +37,8 @@ public class InfinispanRemoteConfig {
     	System.out.println(">>>>>>>>ssl_port>>>>>>>>>>" +ssl_port);
         ConfigurationBuilder builder = new ConfigurationBuilder();
         builder.addServer()
-               .host(host) // Remote Infinispan server host
-               .port(ssl_port)       // Remote Infinispan server port
+               .host("epf-datagrid-poc.datagrid.svc.cluster.local") // Remote Infinispan server host
+               .port("11222")       // Remote Infinispan server port
                .security()
                .authentication()
                .username(userName) // Username
