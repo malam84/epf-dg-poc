@@ -46,6 +46,8 @@ public class InfinispanRemoteConfig {
     @Bean
     public RemoteCacheManager remoteCacheManager() {
         // Configure the Remote Cache Manager
+	System.out.println(">>>>>>>>host>>>>>>>>>>" +host);
+    	System.out.println(">>>>>>>>ssl_port>>>>>>>>>>" +ssl_port);
         ConfigurationBuilder builder = new ConfigurationBuilder();
         builder.addServer()
                .host(host) // Remote Infinispan server host
