@@ -8,6 +8,7 @@ import org.infinispan.spring.remote.session.configuration.EnableInfinispanRemote
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.session.config.annotation.web.http.EnableSpringHttpSession;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.rh.poc.db.User;
 import com.rh.poc.db.UserSchemaInitializer;
@@ -17,17 +18,31 @@ import com.rh.poc.db.UserSchemaInitializer;
 @EnableInfinispanRemoteHttpSession(cacheName = "sessions")
 public class InfinispanRemoteConfig {
 
+    @Value("${infinispan.remote.server-list}")
+	private String host;
+	
+	@Value("${infinispan.remote.ports}")
+	private int ssl_port;
+	
+	@Value("${infinispan.remote.auth-username}")
+	private String userName;
+
+	@Value("${infinispan.remote.auth-password}")
+	private String password;
+
     @Bean
     public RemoteCacheManager remoteCacheManager() {
         // Configure the Remote Cache Manager
+        System.out.println(">>>>>>>>host>>>>>>>>>>" +host);
+    	System.out.println(">>>>>>>>ssl_port>>>>>>>>>>" +ssl_port);
         ConfigurationBuilder builder = new ConfigurationBuilder();
         builder.addServer()
-               .host("localhost") // Remote Infinispan server host
-               .port(11222)       // Remote Infinispan server port
+               .host(host) // Remote Infinispan server host
+               .port(ssl_port)       // Remote Infinispan server port
                .security()
                .authentication()
-               .username("admin") // Username
-               .password("admin") // Password
+               .username(userName) // Username
+               .password(password) // Password
                .saslMechanism("DIGEST-MD5")
                .addContextInitializer(new UserSchemaInitializer()); ; // SASL mechanism
         
