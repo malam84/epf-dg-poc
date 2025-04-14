@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.session.config.annotation.web.http.EnableSpringHttpSession;
 import org.springframework.beans.factory.annotation.Value;
+import org.infinispan.client.hotrod.configuration.ClientIntelligence;
 
 import com.rh.poc.db.User;
 import com.rh.poc.db.UserSchemaInitializer;
