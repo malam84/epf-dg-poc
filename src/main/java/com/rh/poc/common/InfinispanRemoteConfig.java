@@ -40,30 +40,8 @@ public class InfinispanRemoteConfig {
     @Value("${infinispan.client.hotrod.trust_store_path}")
     private String trustStorePath; */
 
-
     @Bean
     public RemoteCacheManager remoteCacheManager() {
-        // Configure the Remote Cache Manager
-      //  System.out.println(">>>>>>>>host>>>>>>>>>>" +host);
-    //	System.out.println(">>>>>>>>ssl_port>>>>>>>>>>" +ssl_port);
-   //     ConfigurationBuilder builder = new ConfigurationBuilder();
-  //      builder.addServer()
-  //             .host(host) // Remote Infinispan server host
-  //             .port(ssl_port)       // Remote Infinispan server port
- //              .security()
-//               .authentication()
-//               .username(userName) // Username
-//               .password(password) // Password
-//               .saslMechanism("DIGEST-MD5")
-//	       .ssl()
-//	       .sniHostName(sniHostName)
-//	       .trustStorePath(trustStorePath)
-//	       .clientIntelligence(ClientIntelligence.BASIC)
- //              .addContextInitializer(new UserSchemaInitializer()); // SASL mechanism
-
-        
- //       return new RemoteCacheManager(builder.build());
-	//    @Bean
         return new RemoteCacheManager(
                 new ConfigurationBuilder()
                         .addServers("epf-datagrid-poc.datagrid.svc.cluster.local:11222")
@@ -72,10 +50,7 @@ public class InfinispanRemoteConfig {
                         .marshaller(new GenericJBossMarshaller())
                         .addJavaSerialWhiteList(".*")
                         .build());
-       }
     }
-
-    
     
     @Bean
     public SpringRemoteCacheManager springRemoteCacheManager(RemoteCacheManager remoteCacheManager) {
