@@ -1,5 +1,5 @@
 # FROM image-registry.openshift-image-registry.svc:5000/openshift/java-runtime:openjdk-17-ubi8
-FROM maven:3.8.6-openjdk-17 AS build
+FROM quay.io/malam/devops/maven:3.8.3-openjdk-17 AS build
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
