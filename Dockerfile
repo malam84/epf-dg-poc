@@ -1,4 +1,13 @@
+# FROM image-registry.openshift-image-registry.svc:5000/openshift/java-runtime:openjdk-17-ubi8
+FROM maven:3.8.6-openjdk-17 AS build
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
+
 FROM image-registry.openshift-image-registry.svc:5000/openshift/java-runtime:openjdk-17-ubi8
+WORKDIR /app
+COPY --from=build /app/target/*.jar kwsp.jar
+
 EXPOSE 8080
-COPY kwsp.jar kwsp.jar
 ENTRYPOINT ["java", "-jar", "kwsp.jar"]
