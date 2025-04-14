@@ -25,9 +25,7 @@ public class InfinispanRemoteConfig {
                 new ConfigurationBuilder()
                         .addServers("epf-datagrid-poc.datagrid.svc.cluster.local:11222")
                         .security().authentication().username("developer").password("tYxtberWYosXk9aY")
-                        .clientIntelligence(ClientIntelligence.HASH_DISTRIBUTION_AWARE)
-                        .marshaller(new GenericJBossMarshaller())
-                        .addJavaSerialWhiteList(".*")
+                        .addContextInitializer(new UserSchemaInitializer())
                         .build());
     }
     
