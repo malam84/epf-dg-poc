@@ -58,7 +58,7 @@ public class InfinispanRemoteConfig {
 	       .ssl()
 	       .sniHostName(sniHostName)
 	       .trustStorePath(trustStorePath)
-	       .clientIntelligence(ClientIntelligence.BASIC);
+	       .clientIntelligence(ClientIntelligence.BASIC)
                .addContextInitializer(new UserSchemaInitializer()); // SASL mechanism
 
         
