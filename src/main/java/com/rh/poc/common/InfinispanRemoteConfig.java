@@ -19,7 +19,7 @@ import com.rh.poc.db.UserSchemaInitializer;
 @EnableInfinispanRemoteHttpSession(cacheName = "sessions")
 public class InfinispanRemoteConfig {
 
-    @Value("${infinispan.client.hotrod.server}")
+  /*  @Value("${infinispan.client.hotrod.server}")
     private String host;
 
     @Value("${infinispan.client.hotrod.port}")
@@ -38,7 +38,7 @@ public class InfinispanRemoteConfig {
     private String sniHostName;
 
     @Value("${infinispan.client.hotrod.trust_store_path}")
-    private String trustStorePath;
+    private String trustStorePath; */
 
 
     @Bean
@@ -63,7 +63,7 @@ public class InfinispanRemoteConfig {
 
         
  //       return new RemoteCacheManager(builder.build());
-	    @Bean
+	//    @Bean
         return new RemoteCacheManager(
                 new ConfigurationBuilder()
                         .addServers("epf-datagrid-poc.datagrid.svc.cluster.local:11222")
