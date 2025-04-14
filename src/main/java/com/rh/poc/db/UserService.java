@@ -11,12 +11,16 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserService {
 
+    
     private final UserRepository userRepository;
     private final RemoteCache<Integer, User> userCache;
 
     public UserService(UserRepository userRepository, RemoteCache<Integer, User> userCache) {
         this.userRepository = userRepository;
         this.userCache = userCache;
+    }
+
+    public UserService (){
     }
 
     // Read-Through: Fetch from cache, if not found then fetch from DB
