@@ -22,8 +22,8 @@ public class InfinispanRemoteConfig {
     @Bean
     public RemoteCacheManager remoteCacheManager() {
         // Configure the Remote Cache Manager
-	System.out.println(">>>>>>>>host>>>>>>>>>>" +host);
-    	System.out.println(">>>>>>>>ssl_port>>>>>>>>>>" +ssl_port);
+//	System.out.println(">>>>>>>>host>>>>>>>>>>" +host);
+ //   	System.out.println(">>>>>>>>ssl_port>>>>>>>>>>" +ssl_port);
         ConfigurationBuilder builder = new ConfigurationBuilder();
         builder.addServer()
                .host("epf-datagrid-poc.datagrid.svc.cluster.local") // Remote Infinispan server host
