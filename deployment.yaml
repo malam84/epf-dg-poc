@@ -257,4 +257,217 @@ status:
       from:
         name: 'java-runtime:openjdk-17-ubi8'
       lastTriggerTime: null
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  annotations:
+    alpha.image.policy.openshift.io/resolve-names: '*'
+    app.openshift.io/route-disabled: 'false'
+    deployment.kubernetes.io/revision: '19'
+    image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"kwsp:latest","namespace":"kwsp-apps"},"fieldPath":"spec.template.spec.containers[?(@.name==\"kwsp\")].image","paused":"false"}]'
+    openshift.io/generated-by: OpenShiftWebConsole
+  resourceVersion: '250129'
+  name: kwsp
+  uid: 26cbf770-5f24-4484-9a72-54297e314438
+  creationTimestamp: '2025-04-14T04:25:45Z'
+  generation: 47
+  managedFields:
+    - manager: Mozilla
+      operation: Update
+      apiVersion: apps/v1
+      time: '2025-04-15T01:24:05Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:alpha.image.policy.openshift.io/resolve-names': {}
+            'f:app.openshift.io/route-disabled': {}
+            'f:image.openshift.io/triggers': {}
+            'f:openshift.io/generated-by': {}
+          'f:labels':
+            'f:app.openshift.io/runtime': {}
+            'f:app': {}
+            'f:app.kubernetes.io/name': {}
+            .: {}
+            'f:app.kubernetes.io/part-of': {}
+            'f:app.openshift.io/runtime-version': {}
+            'f:app.openshift.io/runtime-namespace': {}
+            'f:app.kubernetes.io/instance': {}
+            'f:app.kubernetes.io/component': {}
+        'f:spec':
+          'f:progressDeadlineSeconds': {}
+          'f:revisionHistoryLimit': {}
+          'f:selector': {}
+          'f:strategy':
+            'f:rollingUpdate':
+              .: {}
+              'f:maxSurge': {}
+              'f:maxUnavailable': {}
+            'f:type': {}
+          'f:template':
+            'f:metadata':
+              'f:annotations':
+                .: {}
+                'f:openshift.io/generated-by': {}
+                'f:openshift.openshift.io/restartedAt': {}
+              'f:labels':
+                .: {}
+                'f:app': {}
+                'f:deployment': {}
+            'f:spec':
+              'f:containers':
+                'k:{"name":"kwsp"}':
+                  'f:image': {}
+                  'f:volumeMounts':
+                    .: {}
+                    'k:{"mountPath":"/deployments/config"}':
+                      .: {}
+                      'f:mountPath': {}
+                      'f:name': {}
+                      'f:readOnly': {}
+                  'f:terminationMessagePolicy': {}
+                  .: {}
+                  'f:resources': {}
+                  'f:terminationMessagePath': {}
+                  'f:imagePullPolicy': {}
+                  'f:ports':
+                    .: {}
+                    'k:{"containerPort":8080,"protocol":"TCP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:protocol': {}
+                    'k:{"containerPort":8443,"protocol":"TCP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:protocol': {}
+                  'f:name': {}
+              'f:dnsPolicy': {}
+              'f:restartPolicy': {}
+              'f:schedulerName': {}
+              'f:securityContext': {}
+              'f:terminationGracePeriodSeconds': {}
+              'f:volumes':
+                .: {}
+                'k:{"name":"application-config"}':
+                  .: {}
+                  'f:configMap':
+                    .: {}
+                    'f:defaultMode': {}
+                    'f:items': {}
+                    'f:name': {}
+                  'f:name': {}
+    - manager: kube-controller-manager
+      operation: Update
+      apiVersion: apps/v1
+      time: '2025-04-15T02:40:08Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            'f:deployment.kubernetes.io/revision': {}
+        'f:status':
+          'f:conditions':
+            .: {}
+            'k:{"type":"Available"}':
+              .: {}
+              'f:lastTransitionTime': {}
+              'f:lastUpdateTime': {}
+              'f:message': {}
+              'f:reason': {}
+              'f:status': {}
+              'f:type': {}
+            'k:{"type":"Progressing"}':
+              .: {}
+              'f:lastTransitionTime': {}
+              'f:lastUpdateTime': {}
+              'f:message': {}
+              'f:reason': {}
+              'f:status': {}
+              'f:type': {}
+          'f:observedGeneration': {}
+          'f:replicas': {}
+          'f:unavailableReplicas': {}
+          'f:updatedReplicas': {}
+      subresource: status
+  namespace: kwsp-apps
+  labels:
+    app: kwsp
+    app.kubernetes.io/component: kwsp
+    app.kubernetes.io/instance: kwsp
+    app.kubernetes.io/name: kwsp
+    app.kubernetes.io/part-of: kwsp-app
+    app.openshift.io/runtime: kwsp
+    app.openshift.io/runtime-namespace: kwsp-apps
+    app.openshift.io/runtime-version: latest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kwsp
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: kwsp
+        deployment: kwsp
+      annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+        openshift.openshift.io/restartedAt: '2025-04-14T10:28:27.275Z'
+    spec:
+      volumes:
+        - name: application-config
+          configMap:
+            name: application-properties
+            items:
+              - key: application.properties
+                path: application.properties
+            defaultMode: 420
+      containers:
+        - name: kwsp
+          image: 'image-registry.openshift-image-registry.svc:5000/kwsp-apps/kwsp@sha256:22afdbbbbd8d2442ded1ea33ca1a4ec9a78cd161a7d5557a78b1a97e7d92065c'
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+            - containerPort: 8443
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - name: application-config
+              readOnly: true
+              mountPath: /deployments/config
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+status:
+  observedGeneration: 47
+  replicas: 1
+  updatedReplicas: 1
+  unavailableReplicas: 1
+  conditions:
+    - type: Progressing
+      status: 'True'
+      lastUpdateTime: '2025-04-15T01:24:11Z'
+      lastTransitionTime: '2025-04-14T04:25:46Z'
+      reason: NewReplicaSetAvailable
+      message: ReplicaSet "kwsp-6b85cc55b7" has successfully progressed.
+    - type: Available
+      status: 'False'
+      lastUpdateTime: '2025-04-15T02:40:08Z'
+      lastTransitionTime: '2025-04-15T02:40:08Z'
+      reason: MinimumReplicasUnavailable
+      message: Deployment does not have minimum availability.
 
