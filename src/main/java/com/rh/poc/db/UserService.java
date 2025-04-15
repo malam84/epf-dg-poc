@@ -7,6 +7,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.infinispan.client.hotrod.RemoteCacheManager;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class UserService {
@@ -15,6 +17,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final RemoteCache<Integer, User> userCache;
 
+    @Autowired
     public UserService(UserRepository userRepository, RemoteCache<Integer, User> userCache) {
         this.userRepository = userRepository;
         this.userCache = userCache;
