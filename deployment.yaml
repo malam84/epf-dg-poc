@@ -695,4 +695,66 @@ status:
       type: Ready
 
 ---
-kwsp-postgresql-kwsp-postgresql-poc.apps.cluster-b5hhq.b5hhq.sandbox1851.opentlc.com
+apiVersion: infinispan.org/v2alpha1
+kind: Cache
+metadata:
+  name: users-cache
+  namespace: kwsp-datagird-poc
+spec:
+  clusterName: datagird-kwsp
+  name: users-cache
+  template: |
+    distributedCache: 
+      owners: "2"
+      mode: "SYNC"
+      statistics: "true"
+      encoding: 
+        mediaType: "application/json"
+---
+apiVersion: infinispan.org/v2alpha1
+kind: Cache
+  name: users
+  namespace: kwsp-datagird-poc
+spec:
+  clusterName: datagird-kwsp
+  name: users
+  template: |
+    distributedCache: 
+      mode: "SYNC"
+      owners: "2"
+      statistics: "true"
+      encoding: 
+        mediaType: "application/json"
+ ---
+apiVersion: infinispan.org/v2alpha1
+kind: Cache
+metadata:
+  name: sessions
+  namespace: kwsp-datagird-poc
+spec:
+  clusterName: datagird-kwsp
+  name: sessions
+  template: |
+    distributedCache: 
+      owners: "2"
+      mode: "SYNC"
+      statistics: "true"
+      encoding: 
+        mediaType: "application/x-protostream"
+---
+apiVersion: infinispan.org/v2alpha1
+kind: Cache
+metadata:
+  name: mocked-api-response
+  namespace: kwsp-datagird-poc
+spec:
+  clusterName: datagird-kwsp
+  name: mockedApiResponse
+  template: |
+    distributedCache: 
+      owners: "2"
+      mode: "SYNC"
+      statistics: "true"
+      encoding: 
+        mediaType: "application/json"
+
