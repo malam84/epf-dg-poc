@@ -8,8 +8,6 @@ RUN mvn clean package -DskipTests
 
 FROM image-registry.openshift-image-registry.svc:5000/openshift/java-runtime:openjdk-17-ubi8
 
-COPY dg.crt /usr/local/share/ca-certificates/
-
 WORKDIR /app
 COPY --from=build /app/target/*.jar kwsp.jar
 
