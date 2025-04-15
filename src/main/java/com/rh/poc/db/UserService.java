@@ -9,20 +9,26 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.infinispan.client.hotrod.RemoteCacheManager;
 
 @Service
 public class UserService {
 
     
-    @Autowired
     UserRepository userRepository;
-    
-    @Autowired
     RemoteCache<Integer, User> userCache;
+    private RemoteCacheManager cacheManager;
+
+    @Autowired
+    public UserService(RemoteCacheManager cacheManager, UserRepository userRepository) {
+        this.cacheManager = cacheManager;
+        this.userRepository= userRepository;
+    }
     
     // Read-Through: Fetch from cache, if not found then fetch from DB
     @Cacheable(value = "users-cache", key = "#id")
     public Optional<User> getUserById(int id) {
+        userCache = this.cacheManager.getCache("user");
         return Optional.ofNullable(userCache.computeIfAbsent(id, key -> 
             userRepository.findById(key).orElse(null)  // Handle Optional properly
         ));
@@ -32,6 +38,7 @@ public class UserService {
     @Transactional
     @CachePut(value = "users-cache", key = "#user.id")
     public User saveUser(User user) {
+        userCache = this.cacheManager.getCache("user");
         userCache.put(user.getId(), user);  // Update cache first
         return userRepository.save(user);   // Save to DB
     }
