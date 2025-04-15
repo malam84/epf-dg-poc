@@ -160,6 +160,101 @@ data:
   database-password: cGFzc3dvcmQ=
   database-user: dXNlckpLWA==
 type: Opaque
+----
+kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewBuild
+  resourceVersion: '232734'
+  name: kwsp
+  uid: ae6d7203-cc03-4325-a62d-a051d33261f1
+  creationTimestamp: '2025-04-14T04:00:11Z'
+  generation: 33
+  managedFields:
+    - manager: oc
+      operation: Update
+      apiVersion: build.openshift.io/v1
+      time: '2025-04-14T04:00:11Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:openshift.io/generated-by': {}
+          'f:labels':
+            .: {}
+            'f:build': {}
+        'f:spec':
+          'f:runPolicy': {}
+          'f:source':
+            'f:git':
+              .: {}
+              'f:uri': {}
+            'f:type': {}
+          'f:strategy':
+            'f:dockerStrategy':
+              .: {}
+              'f:from': {}
+            'f:type': {}
+          'f:triggers': {}
+    - manager: Mozilla
+      operation: Update
+      apiVersion: build.openshift.io/v1
+      time: '2025-04-15T01:19:06Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          'f:output':
+            'f:to': {}
+    - manager: openshift-apiserver
+      operation: Update
+      apiVersion: build.openshift.io/v1
+      time: '2025-04-15T01:19:18Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:status':
+          'f:imageChangeTriggers': {}
+          'f:lastVersion': {}
+  namespace: kwsp-apps
+  labels:
+    build: kwsp
+spec:
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'kwsp:8.0'
+  resources: {}
+  successfulBuildsHistoryLimit: 5
+  failedBuildsHistoryLimit: 5
+  strategy:
+    type: Docker
+    dockerStrategy:
+      from:
+        kind: ImageStreamTag
+        name: 'java-runtime:openjdk-17-ubi8'
+  postCommit: {}
+  source:
+    type: Git
+    git:
+      uri: 'https://github.com/malam84/epf-dg-poc.git'
+  triggers:
+    - type: GitHub
+      github:
+        secret: aPAnyPoFM5b3ktRnZHc_
+    - type: Generic
+      generic:
+        secret: Ti0c0Uh1fCrwDpIjfGHQ
+    - type: ConfigChange
+    - type: ImageChange
+      imageChange: {}
+  runPolicy: Serial
+status:
+  lastVersion: 24
+  imageChangeTriggers:
+    - lastTriggeredImageID: 'image-registry.openshift-image-registry.svc:5000/openshift/java-runtime@sha256:8a5192fddca3ef71c29a146b41232a40c957c48505fe793baf678a11208663de'
+      from:
+        name: 'java-runtime:openjdk-17-ubi8'
+      lastTriggerTime: null
 
-
-https://kwsp-postgresql-kwsp-postgresql-poc.apps.cluster-b5hhq.b5hhq.sandbox1851.opentlc.com/
