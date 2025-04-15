@@ -471,3 +471,74 @@ status:
       reason: MinimumReplicasUnavailable
       message: Deployment does not have minimum availability.
 
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: application-properties
+  namespace: kwsp-apps
+  uid: 3719a74e-6981-46e1-b6d2-75e7ad75b893
+  resourceVersion: '183125'
+  creationTimestamp: '2025-04-14T04:32:22Z'
+  managedFields:
+    - manager: kubectl-create
+      operation: Update
+      apiVersion: v1
+      time: '2025-04-14T04:32:22Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:data': {}
+    - manager: Mozilla
+      operation: Update
+      apiVersion: v1
+      time: '2025-04-14T10:31:54Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:data':
+          'f:application.properties': {}
+data:
+  application.properties: |+
+    spring.application.name=poc
+    # MySQL DataSource Configuration
+    spring.datasource.url=jdbc:postgresql://postgresql.epf-postgrsql-poc.svc.cluster.local:5432/sampledb
+    spring.datasource.username=userGQ7
+    spring.datasource.password=password
+    spring.jpa.hibernate.ddl-auto=update
+
+    # Cache Configuration
+    spring.cache.type=infinispan
+    spring.cache.infinispan.config=infinispan.xml
+    spring.main.allow-bean-definition-overriding=true
+
+    #Infinispan (Red Hat Data Grid) Configuration
+    infinispan.client.hotrod.server=epf-datagrid-poc.datagrid.svc.cluster.local
+    infinispan.client.hotrod.port=11222
+    infinispan.client.hotrod.client_intelligence=BASIC
+
+    # Authentication
+    infinispan.client.hotrod.use_auth=false
+    infinispan.client.hotrod.realm=default
+    infinispan.client.hotrod.auth_username=developer
+    infinispan.client.hotrod.auth_password=tYxtberWYosXk9aY
+    infinispan.client.hotrod.sasl_mechanism=DIGEST-MD5
+    infinispan.client.hotrod.sni_host_name=epf-datagrid-poc-external-datagrid.apps-crc.testing
+
+    infinispan.client.hotrod.trust_store_path=/var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt
+    infinispan.client.hotrod.trust_store_type=pem
+
+
+    # Spring Session Configuration
+    spring.session.store-type=infinispan
+    infinispan.remote.proto-schemas=session.proto
+
+    springdoc.api-docs.enabled=true
+    springdoc.swagger-ui.enabled=true
+
+    logging.level.org.hibernate.SQL=DEBUG
+    logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
+    logging.level.org.springframework.jdbc.datasource.DataSourceUtils=DEBUG
+
+    spring.servlet.multipart.enabled=true
+    spring.servlet.multipart.max-file-size=10MB
+    spring.servlet.multipart.max-request-size=10MB
+
