@@ -15,9 +15,9 @@ public class UserService {
 
     
     @Autowired
-UserRepository userRepository;
+    UserRepository userRepository;
     
-@Autowired
+    @Autowired
     RemoteCache<Integer, User> userCache;
     
     // Read-Through: Fetch from cache, if not found then fetch from DB
