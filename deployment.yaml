@@ -693,3 +693,6 @@ status:
   conditions:
     - status: 'True'
       type: Ready
+
+---
+kwsp-postgresql-kwsp-postgresql-poc.apps.cluster-b5hhq.b5hhq.sandbox1851.opentlc.com
