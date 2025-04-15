@@ -16,7 +16,7 @@ import com.rh.poc.db.UserSchemaInitializer;
 
 @Configuration
 @EnableSpringHttpSession
-//@EnableInfinispanRemoteHttpSession(cacheName = "sessions")
+@EnableInfinispanRemoteHttpSession(cacheName = "sessions")
 public class InfinispanRemoteConfig {
 
 
