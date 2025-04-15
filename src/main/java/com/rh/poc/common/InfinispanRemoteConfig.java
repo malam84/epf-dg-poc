@@ -19,19 +19,32 @@ import com.rh.poc.db.UserSchemaInitializer;
 //@EnableInfinispanRemoteHttpSession(cacheName = "sessions")
 public class InfinispanRemoteConfig {
 
+
+    @Value("${infinispan.client.hotrod.server}")
+	private String host;
+
+	@Value("${infinispan.client.hotrod.port}")
+	private int ssl_port;
+
+	@Value("${infinispan.client.hotrod.auth_username}")
+	private String userName;
+
+	@Value("${infinispan.client.hotrod.auth_password}")
+	private String password;
+
     @Bean
     public RemoteCacheManager remoteCacheManager() {
         // Configure the Remote Cache Manager
-//	System.out.println(">>>>>>>>host>>>>>>>>>>" +host);
- //   	System.out.println(">>>>>>>>ssl_port>>>>>>>>>>" +ssl_port);
+     	System.out.println(">>>>>>>>host>>>>>>>>>>" +host);
+     	System.out.println(">>>>>>>>ssl_port>>>>>>>>>>" +ssl_port);
         ConfigurationBuilder builder = new ConfigurationBuilder();
         builder.addServer()
-               .host("epf-datagrid-poc.datagrid.svc.cluster.local") // Remote Infinispan server host
-               .port(11222)       // Remote Infinispan server port
+               .host(host) // Remote Infinispan server host
+               .port(ssl_port)       // Remote Infinispan server port
                .security()
                .authentication()
-               .username("developer") // Username
-               .password("tYxtberWYosXk9aY") // Password
+               .username(userName) // Username
+               .password(password) // Password
                .saslMechanism("DIGEST-MD5")
                .addContextInitializer(new UserSchemaInitializer()); ; // SASL mechanism
         
