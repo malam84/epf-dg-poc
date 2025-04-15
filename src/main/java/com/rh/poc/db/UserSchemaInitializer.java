@@ -12,7 +12,7 @@ public class UserSchemaInitializer implements SerializationContextInitializer {
 
     @Override
     public String getProtoFileName() {
-        return "user.proto";  // Match the file location in resources
+        return "proto/user.proto";  // Match the file location in resources
     }
 
     @Override
