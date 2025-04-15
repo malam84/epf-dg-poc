@@ -10,4 +10,4 @@ WORKDIR /app
 COPY --from=build /app/target/*.jar kwsp.jar
 
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "kwsp.jar"]
+ENTRYPOINT ["java  -Djavax.net.debug=ssl,handshake", "-jar", "kwsp.jar"]
