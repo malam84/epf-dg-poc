@@ -14,18 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class UserService {
 
     
-    private final UserRepository userRepository;
-    private final RemoteCache<Integer, User> userCache;
-
     @Autowired
-    public UserService(UserRepository userRepository, RemoteCache<Integer, User> userCache) {
-        this.userRepository = userRepository;
-        this.userCache = userCache;
-    }
-
-    public UserService (){
-    }
-
+	UserRepository userRepository;
+    
+	@Autowired
+    RemoteCache<Integer, User> userCache;
+    
     // Read-Through: Fetch from cache, if not found then fetch from DB
     @Cacheable(value = "users-cache", key = "#id")
     public Optional<User> getUserById(int id) {
