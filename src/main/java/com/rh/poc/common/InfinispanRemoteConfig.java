@@ -20,7 +20,7 @@ import com.rh.poc.db.UserSchemaInitializer;
 public class InfinispanRemoteConfig {
 
 
-    @Value("${infinispan.client.hotrod.server}")
+        @Value("${infinispan.client.hotrod.server}")
 	private String host;
 
 	@Value("${infinispan.client.hotrod.port}")
