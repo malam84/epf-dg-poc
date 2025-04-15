@@ -114,3 +114,49 @@ spec:
   sessionAffinity: None
   selector:
     name: postgresql
+
+
+  ---
+  kind: Secret
+apiVersion: v1
+metadata:
+  name: postgresql
+  namespace: epf-postgresql
+  uid: ae65b5c3-2ccc-4087-8ecb-052b71bc45a9
+  resourceVersion: '186682'
+  creationTimestamp: '2025-04-14T10:47:01Z'
+  labels:
+    template: postgresql-persistent-template
+    template.openshift.io/template-instance-owner: 29795c5d-c1cc-437d-8581-3b3d55d3a8ec
+  annotations:
+    template.openshift.io/expose-database_name: '{.data[''database-name'']}'
+    template.openshift.io/expose-password: '{.data[''database-password'']}'
+    template.openshift.io/expose-username: '{.data[''database-user'']}'
+  managedFields:
+    - manager: openshift-controller-manager
+      operation: Update
+      apiVersion: v1
+      time: '2025-04-14T10:47:01Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:data':
+          .: {}
+          'f:database-name': {}
+          'f:database-password': {}
+          'f:database-user': {}
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:template.openshift.io/expose-database_name': {}
+            'f:template.openshift.io/expose-password': {}
+            'f:template.openshift.io/expose-username': {}
+          'f:labels':
+            .: {}
+            'f:template': {}
+            'f:template.openshift.io/template-instance-owner': {}
+        'f:type': {}
+data:
+  database-name: a3dzcA==
+  database-password: cGFzc3dvcmQ=
+  database-user: dXNlckpLWA==
+type: Opaque
