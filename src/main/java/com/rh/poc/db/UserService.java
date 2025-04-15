@@ -15,20 +15,18 @@ import org.infinispan.client.hotrod.RemoteCacheManager;
 public class UserService {
 
     
-    UserRepository userRepository;
-    RemoteCache<Integer, User> userCache;
-    private RemoteCacheManager cacheManager;
+    private final UserRepository userRepository;
+    private final RemoteCache<Integer, User> userCache;
 
-    @Autowired
-    public UserService(RemoteCacheManager cacheManager, UserRepository userRepository) {
-        this.cacheManager = cacheManager;
-        this.userRepository= userRepository;
+    public UserService(UserRepository userRepository, RemoteCache<Integer, User> userCache) {
+        this.userRepository = userRepository;
+        this.userCache = userCache;
     }
     
     // Read-Through: Fetch from cache, if not found then fetch from DB
     @Cacheable(value = "users-cache", key = "#id")
     public Optional<User> getUserById(int id) {
-        userCache = this.cacheManager.getCache("users");
+      //  userCache = this.cacheManager.getCache("users");
         return Optional.ofNullable(userCache.computeIfAbsent(id, key -> 
             userRepository.findById(key).orElse(null)  // Handle Optional properly
         ));
@@ -38,7 +36,7 @@ public class UserService {
     @Transactional
     @CachePut(value = "users-cache", key = "#user.id")
     public User saveUser(User user) {
-        userCache = this.cacheManager.getCache("users");
+    //    userCache = this.cacheManager.getCache("users");
         userCache.put(user.getId(), user);  // Update cache first
         return userRepository.save(user);   // Save to DB
     }
