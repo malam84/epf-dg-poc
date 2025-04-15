@@ -542,3 +542,27 @@ data:
     spring.servlet.multipart.max-file-size=10MB
     spring.servlet.multipart.max-request-size=10MB
 
+----
+session.proto: |-
+    syntax = "proto3";
+
+    package org.springframework.session.data.infinispan;
+
+    message SpringSession {
+      string id = 1;
+      int64 creationTime = 2;
+      int64 lastAccessedTime = 3;
+      int64 maxInactiveInterval = 4;
+      map<string, string> sessionAttributes = 5;
+    }
+  user.proto: |-
+    syntax = "proto3";
+
+    package com.kwsp.poc;
+
+    message User {
+      int32 id = 1;
+      string email = 2;
+      string name = 3;
+      int32 version = 4;
+    }
