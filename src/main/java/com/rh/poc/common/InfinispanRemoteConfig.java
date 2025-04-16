@@ -47,9 +47,9 @@ public class InfinispanRemoteConfig {
         // Configure the Remote Cache Manager
      	System.out.println(">>>>>>>>host>>>>>>>>>>" +host);
      	System.out.println(">>>>>>>>ssl_port>>>>>>>>>>" +ssl_port);
-	System.out.println(">>>>>>>>sniHostName>>>>>>>>>>" +sniHostName);
-	System.out.println(">>>>>>>>trustStoreFileName>>>>>>>>>>" +trustStoreFileName);
-     	System.out.println(">>>>>>>>trustStoreType>>>>>>>>>>" +trustStoreType);
+	//System.out.println(">>>>>>>>sniHostName>>>>>>>>>>" +sniHostName);
+	//System.out.println(">>>>>>>>trustStoreFileName>>>>>>>>>>" +trustStoreFileName);
+     	//System.out.println(">>>>>>>>trustStoreType>>>>>>>>>>" +trustStoreType);
         ConfigurationBuilder builder = new ConfigurationBuilder();
         builder.addServer()
                .host(host) // Remote Infinispan server host
@@ -58,12 +58,12 @@ public class InfinispanRemoteConfig {
                .authentication()
                .username(userName) // Username
                .password(password) // Password
-               .saslQop(SaslQop.AUTH)
-               .saslMechanism("SCRAM-SHA-512")
-               .ssl()
-               .sniHostName(sniHostName)
-               .trustStoreFileName(trustStoreFileName)
-               .trustStoreType(trustStoreType)
+              // .saslQop(SaslQop.AUTH)
+               .saslMechanism("DIGEST-MD5")
+            //   .ssl()
+            //   .sniHostName(sniHostName)
+            //   .trustStoreFileName(trustStoreFileName)
+            //   .trustStoreType(trustStoreType)
                .addContextInitializer(new UserSchemaInitializer()); // SASL mechanism
         
         return new RemoteCacheManager(builder.build());
