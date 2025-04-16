@@ -47,6 +47,9 @@ public class InfinispanRemoteConfig {
         // Configure the Remote Cache Manager
      	System.out.println(">>>>>>>>host>>>>>>>>>>" +host);
      	System.out.println(">>>>>>>>ssl_port>>>>>>>>>>" +ssl_port);
+	System.out.println(">>>>>>>>sniHostName>>>>>>>>>>" +sniHostName);
+	System.out.println(">>>>>>>>trustStoreFileName>>>>>>>>>>" +trustStoreFileName);
+     	System.out.println(">>>>>>>>trustStoreType>>>>>>>>>>" +trustStoreType);
         ConfigurationBuilder builder = new ConfigurationBuilder();
         builder.addServer()
                .host(host) // Remote Infinispan server host
