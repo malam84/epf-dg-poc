@@ -22,7 +22,7 @@ public class SessionController {
     	System.out.println("get key >>>>>>>>>>>>>>>>>>>>>> "+key);
     	System.out.println(session.getAttributeNames().nextElement());
         Object value = session.getAttribute(key);
-        System.out.println(">>>>>>>>>>end get key >>>>>>>>>>>>>>>>>>>>>> "+key);
+        System.out.println(">>>>>>>>>>end get key >>>>>>>>>>>>>>>>>>>>>> ");
         return value != null ? "Session attribute: " + key + " = " + value : "No value found";
     }
     
