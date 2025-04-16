@@ -32,6 +32,15 @@ public class InfinispanRemoteConfig {
 	@Value("${infinispan.client.hotrod.auth_password}")
 	private String password;
 
+	@Value("${infinispan.client.hotrod.sni_host_name}")
+	private String sniHostName;
+	
+	@Value("${infinispan.client.hotrod.trust_store_filename}")
+	private String trustStoreFileName;
+	
+	@Value("${infinispan.client.hotrod.trust_store_type}")
+	private String trustStoreType;
+
     @Bean
     public RemoteCacheManager remoteCacheManager() {
         // Configure the Remote Cache Manager
@@ -45,8 +54,13 @@ public class InfinispanRemoteConfig {
                .authentication()
                .username(userName) // Username
                .password(password) // Password
-               .saslMechanism("DIGEST-MD5")
-               .addContextInitializer(new UserSchemaInitializer()); ; // SASL mechanism
+               .saslQop(SaslQop.AUTH)
+               .saslMechanism("SCRAM-SHA-512")
+               .ssl()
+               .sniHostName(sniHostName)
+               .trustStoreFileName(trustStoreFileName)
+               .trustStoreType(trustStoreType)
+               .addContextInitializer(new UserSchemaInitializer()); // SASL mechanism
         
         return new RemoteCacheManager(builder.build());
     }
