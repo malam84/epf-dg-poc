@@ -758,3 +758,97 @@ spec:
       encoding: 
         mediaType: "application/json"
 
+---
+apiVersion: infinispan.org/v2alpha1
+kind: Cache
+metadata:
+  generateName: images-
+  annotations:
+    infinispan.org/listener-generation: '1'
+  resourceVersion: '403802'
+  name: images-zfsv5
+  uid: e317699c-0bf4-4b5e-ba1b-3fa83d87656c
+  creationTimestamp: '2025-04-16T03:40:43Z'
+  generation: 1
+  managedFields:
+    - apiVersion: infinispan.org/v2alpha1
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:infinispan.org/listener-generation': {}
+          'f:finalizers':
+            .: {}
+            'v:"finalizer.infinispan.org"': {}
+          'f:generateName': {}
+          'f:ownerReferences':
+            .: {}
+            'k:{"uid":"4f875f7f-b960-4480-b6cd-e3d92ae3713e"}': {}
+        'f:spec':
+          .: {}
+          'f:clusterName': {}
+          'f:name': {}
+          'f:template': {}
+      manager: infinispan-operator
+      operation: Update
+      time: '2025-04-16T03:40:43Z'
+    - apiVersion: infinispan.org/v2alpha1
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:status':
+          .: {}
+          'f:conditions': {}
+      manager: infinispan-operator
+      operation: Update
+      subresource: status
+      time: '2025-04-16T03:40:43Z'
+  namespace: datagrid
+  ownerReferences:
+    - apiVersion: infinispan.org/v1
+      kind: Infinispan
+      name: epf-datagrid-poc
+      uid: 4f875f7f-b960-4480-b6cd-e3d92ae3713e
+  finalizers:
+    - finalizer.infinispan.org
+spec:
+  clusterName: epf-datagrid-poc
+  name: images
+  template: |
+    distributedCache: 
+      owners: "2"
+      mode: "SYNC"
+      statistics: "true"
+      encoding: 
+        mediaType: "application/json"
+      persistence: 
+        passivation: "false"
+        stringKeyedJdbcStore: 
+          dialect: "POSTGRES"
+          stringKeyedTable: 
+            prefix: "images"
+            createOnStart: "true"
+            dropOnExit: "true"
+            idColumn: 
+              name: "id"
+              type: "VARCHAR(255)"
+            dataColumn: 
+              name: "DATA"
+              type: "BYTEA"
+            timestampColumn: 
+              name: "TS"
+              type: "BIGINT"
+            segmentColumn: 
+              name: "S"
+              type: "INT"
+          connectionPool: 
+            username: "***"
+            password: "***"
+            driver: "org.postgresql.Driver"
+            connectionUrl: "jdbc:postgresql://postgresql.epf-postgresql.svc.cluster.local:5432/kwsp"
+  updates:
+    strategy: retain
+status:
+  conditions:
+    - status: 'True'
+      type: Ready
