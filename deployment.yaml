@@ -852,3 +852,248 @@ status:
   conditions:
     - status: 'True'
       type: Ready
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: kwsp
+  namespace: kwsp-apps
+  uid: bf1e6e29-2464-4d70-8835-1f06a517b61d
+  resourceVersion: '7065782'
+  generation: 101
+  creationTimestamp: '2025-04-15T03:09:19Z'
+  annotations:
+    deployment.kubernetes.io/revision: '37'
+  managedFields:
+    - manager: Mozilla
+      operation: Update
+      apiVersion: apps/v1
+      time: '2025-04-15T12:37:15Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          'f:progressDeadlineSeconds': {}
+          'f:revisionHistoryLimit': {}
+          'f:selector': {}
+          'f:strategy':
+            'f:rollingUpdate':
+              .: {}
+              'f:maxSurge': {}
+              'f:maxUnavailable': {}
+            'f:type': {}
+          'f:template':
+            'f:metadata':
+              'f:annotations':
+                .: {}
+                'f:openshift.io/generated-by': {}
+                'f:openshift.openshift.io/restartedAt': {}
+              'f:labels':
+                .: {}
+                'f:app': {}
+                'f:deployment': {}
+            'f:spec':
+              'f:containers':
+                'k:{"name":"kwsp"}':
+                  'f:image': {}
+                  'f:volumeMounts':
+                    .: {}
+                    'k:{"mountPath":"/deployments/config"}':
+                      .: {}
+                      'f:mountPath': {}
+                      'f:name': {}
+                      'f:readOnly': {}
+                    'k:{"mountPath":"/deployments/config/proto"}':
+                      .: {}
+                      'f:mountPath': {}
+                      'f:name': {}
+                      'f:readOnly': {}
+                    'k:{"mountPath":"/deployments/config/static"}':
+                      .: {}
+                      'f:mountPath': {}
+                      'f:name': {}
+                      'f:readOnly': {}
+                  'f:terminationMessagePolicy': {}
+                  .: {}
+                  'f:resources': {}
+                  'f:env':
+                    .: {}
+                    'k:{"name":"JAVA_TOOL_OPTIONS"}':
+                      .: {}
+                      'f:name': {}
+                      'f:value': {}
+                  'f:terminationMessagePath': {}
+                  'f:imagePullPolicy': {}
+                  'f:ports':
+                    .: {}
+                    'k:{"containerPort":8080,"protocol":"TCP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:protocol': {}
+                    'k:{"containerPort":8443,"protocol":"TCP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:protocol': {}
+                  'f:name': {}
+              'f:dnsPolicy': {}
+              'f:restartPolicy': {}
+              'f:schedulerName': {}
+              'f:securityContext': {}
+              'f:terminationGracePeriodSeconds': {}
+              'f:volumes':
+                .: {}
+                'k:{"name":"application-config"}':
+                  .: {}
+                  'f:configMap':
+                    .: {}
+                    'f:defaultMode': {}
+                    'f:items': {}
+                    'f:name': {}
+                  'f:name': {}
+                'k:{"name":"proto-config"}':
+                  .: {}
+                  'f:configMap':
+                    .: {}
+                    'f:defaultMode': {}
+                    'f:items': {}
+                    'f:name': {}
+                  'f:name': {}
+                'k:{"name":"static-config"}':
+                  .: {}
+                  'f:configMap':
+                    .: {}
+                    'f:defaultMode': {}
+                    'f:items': {}
+                    'f:name': {}
+                  'f:name': {}
+    - manager: kube-controller-manager
+      operation: Update
+      apiVersion: apps/v1
+      time: '2025-04-16T04:49:21Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:deployment.kubernetes.io/revision': {}
+        'f:status':
+          'f:availableReplicas': {}
+          'f:conditions':
+            .: {}
+            'k:{"type":"Available"}':
+              .: {}
+              'f:lastTransitionTime': {}
+              'f:lastUpdateTime': {}
+              'f:message': {}
+              'f:reason': {}
+              'f:status': {}
+              'f:type': {}
+            'k:{"type":"Progressing"}':
+              .: {}
+              'f:lastTransitionTime': {}
+              'f:lastUpdateTime': {}
+              'f:message': {}
+              'f:reason': {}
+              'f:status': {}
+              'f:type': {}
+          'f:observedGeneration': {}
+          'f:readyReplicas': {}
+          'f:replicas': {}
+          'f:updatedReplicas': {}
+      subresource: status
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kwsp
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: kwsp
+        deployment: kwsp
+      annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+        openshift.openshift.io/restartedAt: '2025-04-14T10:28:27.275Z'
+    spec:
+      volumes:
+        - name: application-config
+          configMap:
+            name: application-properties
+            items:
+              - key: application.properties
+                path: application.properties
+              - key: infinispan.xml
+                path: infinispan.xml
+            defaultMode: 420
+        - name: proto-config
+          configMap:
+            name: proto-properties
+            items:
+              - key: session.proto
+                path: session.proto
+              - key: user.proto
+                path: user.proto
+            defaultMode: 420
+        - name: static-config
+          configMap:
+            name: file-upload
+            items:
+              - key: upload.html
+                path: upload.html
+            defaultMode: 420
+      containers:
+        - resources: {}
+          terminationMessagePath: /dev/termination-log
+          name: kwsp
+          env:
+            - name: JAVA_TOOL_OPTIONS
+              value: '-Dspring.config.location=file:/deployments/config/'
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+            - containerPort: 8443
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: application-config
+              readOnly: true
+              mountPath: /deployments/config
+            - name: proto-config
+              readOnly: true
+              mountPath: /deployments/config/proto
+            - name: static-config
+              readOnly: true
+              mountPath: /deployments/config/static
+          terminationMessagePolicy: File
+          image: 'image-registry.openshift-image-registry.svc:5000/kwsp-apps/kwsp:5.0'
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+status:
+  observedGeneration: 101
+  replicas: 1
+  updatedReplicas: 1
+  readyReplicas: 1
+  availableReplicas: 1
+  conditions:
+    - type: Progressing
+      status: 'True'
+      lastUpdateTime: '2025-04-15T12:37:19Z'
+      lastTransitionTime: '2025-04-15T03:09:19Z'
+      reason: NewReplicaSetAvailable
+      message: ReplicaSet "kwsp-686f4d8f48" has successfully progressed.
+    - type: Available
+      status: 'True'
+      lastUpdateTime: '2025-04-16T04:49:21Z'
+      lastTransitionTime: '2025-04-16T04:49:21Z'
+      reason: MinimumReplicasAvailable
+      message: Deployment has minimum availability.
